@@ -11,5 +11,7 @@ export default defineConfig({
     // snapshots can still be requested explicitly by isolated diagnostics.
     watch: { ignored: ['**/.local/**', '**/artifacts/**', '**/test-results/**', '**/playwright-report/**'] },
   },
-  build: { target: 'es2022' },
+  // Server nginx hijacks /assets (subscription panel proxy), so the build
+  // output must not use the default Vite assets directory name.
+  build: { target: 'es2022', assetsDir: 'fractol-assets' },
 });
