@@ -1,0 +1,23 @@
+import { afterEach, expect, it, vi } from 'vitest';
+import { BenchmarkRunner } from '../../src/rendering/benchmarkRunner';
+import { RenderSession, type SessionClock } from '../../src/rendering/session';
+import { FakeBackend } from './fakeBackend';
+import { createScene } from '../../src/domain/catalog';
+vi.mock('../../src/infrastructure/device',()=>({collectDeviceInfo:()=>Promise.reject(new Error('Device inspection failed'))}));
+afterEach(()=>{vi.unstubAllGlobals();});
+it('releases observers and session ownership if device inspection fails before report creation',async()=>{
+  const windowTarget=new EventTarget(),documentTarget=new EventTarget();
+  const addedWindow=vi.spyOn(windowTarget,'addEventListener'),removedWindow=vi.spyOn(windowTarget,'removeEventListener');
+  const addedDocument=vi.spyOn(documentTarget,'addEventListener'),removedDocument=vi.spyOn(documentTarget,'removeEventListener');
+  vi.stubGlobal('window',windowTarget);vi.stubGlobal('document',documentTarget);
+  vi.stubGlobal('innerWidth',800);vi.stubGlobal('innerHeight',600);vi.stubGlobal('devicePixelRatio',1);
+  const clock:SessionClock={now:()=>0,requestFrame:()=>1,cancelFrame:()=>{},dpr:()=>1,wait:()=>Promise.resolve()};
+  const noop=()=>{},session=new RenderSession(new FakeBackend(),createScene(),{stats:noop,loading:noop,error:noop,lightGlass:noop},clock);
+  session.setQualityProfile('performance');
+  const runner=new BenchmarkRunner(session,{apply:async()=>{},move:noop,isLight:()=>false,panels:'test',progress:noop});
+  await expect(runner.run({mode:'standard',scene:createScene()})).rejects.toThrow('Device inspection failed');
+  expect(session.getQualityProfile()).toBe('performance');
+  expect(removedWindow.mock.calls).toEqual(addedWindow.mock.calls);
+  expect(removedDocument.mock.calls).toEqual(addedDocument.mock.calls);
+  session.acquireOperation('export').release();session.dispose();
+});

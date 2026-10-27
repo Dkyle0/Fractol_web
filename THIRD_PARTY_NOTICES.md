@@ -1,0 +1,27 @@
+# Сторонние компоненты
+
+Собственный код Fractol распространяется по [MIT](LICENSE), Copyright (c) 2026 Dkyle. Эта лицензия не заменяет лицензии сторонних компонентов. Полные тексты и уведомления правообладателей сохранены в перечисленных файлах.
+
+## Компоненты приложения
+
+| Компонент | Текст лицензии и уведомления |
+| --- | --- |
+| Vue | [vue.txt](public/licenses/vue.txt) |
+| Vue Shared | [vue-shared.txt](public/licenses/vue-shared.txt) |
+| Vue Reactivity | [vue-reactivity.txt](public/licenses/vue-reactivity.txt) |
+| Vue Runtime Core | [vue-runtime-core.txt](public/licenses/vue-runtime-core.txt) |
+| Vue Runtime DOM | [vue-runtime-dom.txt](public/licenses/vue-runtime-dom.txt) |
+| Vuetify | [vuetify.txt](public/licenses/vuetify.txt) |
+| Pinia | [pinia.txt](public/licenses/pinia.txt) |
+| Material Design Icons (@mdi/js) | [mdi-js.txt](public/licenses/mdi-js.txt) |
+| Шрифт Manrope (@fontsource/manrope) | [fontsource-manrope.txt](public/licenses/fontsource-manrope.txt) |
+
+Копии содержат версии установленных пакетов и исходные тексты их лицензий. `node scripts/licenses.mjs` обновляет эти файлы после установки зависимостей, а также создаёт указатель `public/third-party-notices.txt` и копию собственной MIT для статической сборки. Лицензии инструментов разработки доступны в соответствующих установленных пакетах; версии закреплены в `package-lock.json`.
+
+## Berkeley SoftFloat Release 3e
+
+`src/rendering/estimatedDivision.ts` адаптирует `f64_div.c`, `s_approxRecip32_1.c` и таблицы `s_approxRecip_1Ks.c` John R. Hauser для пар uint в GLSL. Источник: [Berkeley SoftFloat](https://github.com/ucb-bar/berkeley-softfloat-3).
+
+Полное исходное уведомление, условия BSD-3-Clause и отказ от гарантий: [berkeley-softfloat.txt](public/licenses/berkeley-softfloat.txt). Этот отдельный текст сохраняется без изменений; общий указатель не подставляется вместо него.
+
+При распространении статической сборки сохраняйте `third-party-notices.txt` и каталог `licenses/`, автоматически копируемые Vite из `public/`. Шрифты, иконки и адаптированный сторонний код сохраняют собственные условия.

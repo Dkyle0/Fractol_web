@@ -1,0 +1,29 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.cache/
+*.local
+
+# Private project history, decisions, experiments and diagnostic runs.
+/.local/
+/artifacts/
+
+# Local configuration and credentials; example configuration may be published.
+.env
+.env.*
+!.env.example
+
+# Logs and editor/OS temporary files.
+*.log
+*.tsbuildinfo
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+Desktop.ini

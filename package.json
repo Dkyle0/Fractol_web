@@ -1,0 +1,37 @@
+{
+  "name": "fractol-web",
+  "version": "1.4.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:tools": "node --test tests/tools/*.test.mjs",
+    "test:browser": "playwright test --project=chromium",
+    "test:browser:all": "playwright test",
+    "thumbnails": "node scripts/thumbnails.mjs",
+    "benchmark": "node scripts/benchmark.mjs"
+  },
+  "dependencies": {
+    "@fontsource/manrope": "5.3.0",
+    "@mdi/js": "7.4.47",
+    "pinia": "4.1.0",
+    "vue": "3.5.44",
+    "vuetify": "4.2.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "@vitejs/plugin-vue": "6.0.10",
+    "typescript": "5.9.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.5",
+    "vue-tsc": "3.3.13"
+  }
+}
